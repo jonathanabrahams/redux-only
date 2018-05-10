@@ -1,6 +1,7 @@
 # Using Redux on its own
 To change data we need to `dispatch` an `action`.
 
+![PlantUML](http://www.plantuml.com/plantuml/png/SoWkIImgAStDuR9AoImkI2n9ph3cAYx8oIpXKW02gw3KbDBar285GwYeGc9wOcQU0ggaaJLNQbwA0aIRLN59Vb6gDOXEB07I3a0feFa0)
 ```plantuml
 :dispatch;
 split
