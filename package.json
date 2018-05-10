@@ -6,11 +6,12 @@
   "author": "jonathanabrahams <jonathanabrahams@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "server": " babel-node server/index.js"
+    "server": "nodemon --watch server --exec babel-node -- server/index.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "nodemon": "^1.17.4"
   }
 }

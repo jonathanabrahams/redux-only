@@ -68,3 +68,13 @@ Create `.babelrc`
     "presets": ["env"]
 }
 ```
+
+Add `nodemon` to watch and restart express
+`yarn add --dev nodemon`
+
+Update `package.json`
+```
+"scripts": {
+  "server": "nodemon --watch server --exec babel-node -- server/index.js"
+}
+```
