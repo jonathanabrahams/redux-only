@@ -51,3 +51,20 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyComponent)
 ```
+
+## Setup express + ES6
+```
+yarn add --dev express babel-cli babel-preset-env
+```
+Add Task `package.json`
+```
+"scripts": {
+    "server": " babel-node server/index.js"
+}
+```
+Create `.babelrc`
+```json
+{
+    "presets": ["env"]
+}
+```
