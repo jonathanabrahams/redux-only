@@ -74,7 +74,7 @@ Add `nodemon` to watch and restart express
 `yarn add --dev nodemon`
 
 Update `package.json`
-```
+```json
 "scripts": {
   "server": "nodemon --watch server --exec babel-node -- server/index.js"
 }
@@ -85,7 +85,7 @@ Add Client support with webpack and babel
 `yarn add --dev webpack webpack-dev-middleware babel-loader babel-plugin-transform-object-rest-spread`
 
 Create `client/index.js`
-```
+```js
 import { createStore } from 'redux';
 
 //Reducers
@@ -125,13 +125,13 @@ store.dispatch(doDecrement());
 ```
 
 Update `server/index.html`
-```
+```html
 <script src="/bundle.js"></script>
 </body>
 ```
 
 Create `webpack.config.dev.js`
-```
+```js
 import path from 'path';
 
 export default {
@@ -154,7 +154,7 @@ export default {
 ```
 
 Update `.babelrc`
-```
+```json
     "plugins": [
         "transform-object-rest-spread"
     ]
@@ -172,3 +172,41 @@ app.use(webpackMiddleware(webpack(webpackConfig)));
 ```
 
 Add `redux` with `yarn add --dev redux`
+
+## Setup React support
+
+Add React client-side support `yarn add --dev react react-dom babel-preset-react`
+
+Update `.babelrc`
+```json
+"presets": [
+    "env",
+    "react"
+]
+```
+
+Update `server/index.html`
+```html
+<!-- App component mount point -->
+<div id="app"></div>
+```
+
+Move `client/index.js` to `client/couter.js`
+
+Replace `client/index.js`
+```js
+import React from 'react';
+import { render } from 'react-dom';
+import App from './components/App';
+
+render(<App />, document.getElementById('app'));
+```
+
+Create `client/components/App.js`
+```
+import React from 'react';
+
+export default () => (
+    <h1>Hello from react</h1>
+);
+```
