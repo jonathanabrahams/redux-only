@@ -237,3 +237,52 @@ import store from './counter.js';
 
 render(<Provider store={store}><App /></Provider>, document.getElementById('app'));
 ```
+
+## Add Redux-DevTools
+`yarn add -D redux-devtools redux-devtools-dock-monitor redux-devtools-log-monitor`
+
+## Create `./components/DevTools.js`
+
+```js
+import React from 'react';
+
+import { createDevTools } from 'redux-devtools';
+
+import LogMonitor from 'redux-devtools-log-monitor';
+import DockMonitor from 'redux-devtools-dock-monitor';
+
+const DevTools = createDevTools(
+    <DockMonitor toggleVisibilityKey='ctrl-h'
+        changePositionKey='ctrl-q'
+        defaultIsVisible={true}>
+        <LogMonitor theme='tomorrow' />
+    </DockMonitor>
+)
+
+export default DevTools;
+```
+## Update `client/index.js`
+```js
+import DevTools from './components/DevTools';
+
+<Provider store={store}>
+    <div>
+        <App />
+        <DevTools />
+    </div>
+</Provider>
+```
+
+## Update `store` in `client/counter.js`
+```js
+import { createStore, applyMiddleware, compose } from 'redux';
+import DevTools from './components/DevTools';
+
+const enhancer = compose(
+    // Middleware for development
+    //Required!
+    DevTools.instrument()
+)
+
+let store = createStore(counter, {value:0}, enhancer);
+```
