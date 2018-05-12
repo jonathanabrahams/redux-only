@@ -10,7 +10,7 @@ const MyComponent = (props) => (
     </div>
 )
 
-const mapStateToeProps = state => ({
+const mapStateToProps = state => ({
     text: state.value
 })
 
@@ -28,6 +28,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(
-    mapStateToeProps,
+    mapStateToProps,
     mapDispatchToProps
 )(MyComponent);

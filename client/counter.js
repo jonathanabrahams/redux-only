@@ -1,4 +1,11 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import DevTools from './components/DevTools';
+
+const enhancer = compose(
+    // Middleware for development
+    //Required!
+    DevTools.instrument()
+)
 
 //Reducers
 function counter(state = { value: 0 }, action) {
@@ -25,7 +32,7 @@ function doDecrement() {
 }
 
 //Store
-let store = createStore(counter);
+let store = createStore(counter, {value:0}, enhancer);
 
 //Subscriber
 store.subscribe(() => console.log(store.getState()));
