@@ -34,3 +34,5 @@ store.subscribe(() => console.log(store.getState()));
 store.dispatch(doIncrement());
 store.dispatch(doIncrement());
 store.dispatch(doDecrement());
+
+export default store;

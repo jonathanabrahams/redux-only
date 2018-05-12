@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App';
-import './counter.js';
+import { Provider } from 'react-redux';
 
-render(<App />, document.getElementById('app'));
+import App from './components/App';
+import store from './counter.js';
+
+render(<Provider store={store}><App /></Provider>, document.getElementById('app'));

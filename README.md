@@ -1,7 +1,6 @@
 # Using Redux
 To change data we need to `dispatch` an `action`.
 
-![PlantUML](http://www.plantuml.com/plantuml/png/SoWkIImgAStDuR9AoImkI2n9ph3cAYx8oIpXKW02gw3KbDBar285GwYeGc9wOcQU0ggaaJLNQbwA0aIRLN59Vb6gDOXEB07I3a0feFa0)
 ```plantuml
 :dispatch;
 split
@@ -29,28 +28,39 @@ To obtain data we need to get the current `state` of the `store`.
 The store is now provided to the application, now `connect` our `components` to it. Retrieve data by obtaining current `state`, or Change its `state` by sending and `action` with `dispatch`. `connect` maps the `store` `state` and `dispatch` to the `props` of a `component`.
 
 ```tsx
-import {connect} from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 
-const MyComponent = (props) => (
+const MyComponent = props => (
     <div>
-        <span onClick={onClick}>{props.text}</span>
+        <h1>MyComponent</h1>
+        <span>Value={props.text}</span><br/>
+        <button onClick={props.onINC}>INC</button>&nbsp;-&nbsp;
+        <button onClick={props.onDEC}>DEC</button>
     </div>
 )
 
-const mapStateToProps = state => ({
-    text: state.content
+const mapStateToeProps = state => ({
+    text: state.value
 })
 
-const doClick = () => ({
-    type: 'DO_ACTION',
-    payload: {}
+const doINC = () => ({
+    type: 'INC'
+})
+
+const doDEC = () => ({
+    type: 'DEC'
 })
 
 const mapDispatchToProps = dispatch => ({
-    onClick: ()=> dispatch(doClick())
+    onINC: () => dispatch(doINC()),
+    onDEC: () => dispatch(doDEC())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyComponent)
+export default connect(
+    mapStateToeProps,
+    mapDispatchToProps
+)(MyComponent);
 ```
 
 ## Setup express + ES6 + babel + webpack
@@ -122,6 +132,8 @@ store.subscribe(() => console.log(store.getState()));
 store.dispatch(doIncrement());
 store.dispatch(doIncrement());
 store.dispatch(doDecrement());
+
+export default store;
 ```
 
 Update `server/index.html`
@@ -209,4 +221,18 @@ import React from 'react';
 export default () => (
     <h1>Hello from react</h1>
 );
+```
+
+## Redux with React
+`Provider` wraps `App` and `store` passed in.
+
+```js
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+
+import App from './components/App';
+import store from './counter.js';
+
+render(<Provider store={store}><App /></Provider>, document.getElementById('app'));
 ```
