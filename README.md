@@ -16,84 +16,7 @@ To get a snapshot of the data `store.getState()`.
 
 To obtain data we need to get the current `state` of the `store`.
 
-## React-Redux
-`Provider` is a `React` component from `react-redux` library, it provides the store to its child components.
-
-```html
-<Provider store={store}>
-    <App/>
-</Provider>
-```
-
-The store is now provided to the application, now `connect` our `components` to it. Retrieve data by obtaining current `state`, or Change its `state` by sending and `action` with `dispatch`. `connect` maps the `store` `state` and `dispatch` to the `props` of a `component`.
-
-```tsx
-import React from 'react';
-import { connect } from 'react-redux';
-
-const MyComponent = props => (
-    <div>
-        <h1>MyComponent</h1>
-        <span>Value={props.text}</span><br/>
-        <button onClick={props.onINC}>INC</button>&nbsp;-&nbsp;
-        <button onClick={props.onDEC}>DEC</button>
-    </div>
-)
-
-const mapStateToeProps = state => ({
-    text: state.value
-})
-
-const doINC = () => ({
-    type: 'INC'
-})
-
-const doDEC = () => ({
-    type: 'DEC'
-})
-
-const mapDispatchToProps = dispatch => ({
-    onINC: () => dispatch(doINC()),
-    onDEC: () => dispatch(doDEC())
-})
-
-export default connect(
-    mapStateToeProps,
-    mapDispatchToProps
-)(MyComponent);
-```
-
-## Setup express + ES6 + babel + webpack
-```
-yarn add --dev express babel-cli babel-preset-env
-```
-Add Task `package.json`
-```
-"scripts": {
-    "server": " babel-node server/index.js"
-}
-```
-Create `.babelrc`
-```json
-{
-    "presets": ["env"]
-}
-```
-
-Add `nodemon` to watch and restart express
-`yarn add --dev nodemon`
-
-Update `package.json`
-```json
-"scripts": {
-  "server": "nodemon --watch server --exec babel-node -- server/index.js"
-}
-```
-
-Add Client support with webpack and babel
-
-`yarn add --dev webpack webpack-dev-middleware babel-loader babel-plugin-transform-object-rest-spread`
-
+## Redux without React
 Create `client/index.js`
 ```js
 import { createStore } from 'redux';
@@ -135,6 +58,84 @@ store.dispatch(doDecrement());
 
 export default store;
 ```
+
+## Redux integrated with React
+`Provider` is a `React` component from `react-redux` library, it provides the store to its child components.
+
+```html
+<Provider store={store}>
+    <App/>
+</Provider>
+```
+
+The store is now provided to the application, now `connect` our `components` to it. Retrieve data by obtaining current `state`, or Change its `state` by sending and `action` with `dispatch`. `connect` maps the `store` `state` and `dispatch` to the `props` of a `component`.
+
+```tsx
+import React from 'react';
+import { connect } from 'react-redux';
+
+const MyComponent = props => (
+    <div>
+        <h1>MyComponent</h1>
+        <span>Value={props.text}</span><br/>
+        <button onClick={props.onINC}>INC</button>&nbsp;-&nbsp;
+        <button onClick={props.onDEC}>DEC</button>
+    </div>
+)
+
+const mapStateToProps = state => ({
+    text: state.value
+})
+
+const doINC = () => ({
+    type: 'INC'
+})
+
+const doDEC = () => ({
+    type: 'DEC'
+})
+
+const mapDispatchToProps = dispatch => ({
+    onINC: () => dispatch(doINC()),
+    onDEC: () => dispatch(doDEC())
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MyComponent);
+```
+
+## Setup express + ES6 + babel + webpack
+```
+yarn add --dev express babel-cli babel-preset-env
+```
+Add Task `package.json`
+```
+"scripts": {
+    "server": " babel-node server/index.js"
+}
+```
+Create `.babelrc`
+```json
+{
+    "presets": ["env"]
+}
+```
+
+Add `nodemon` to watch and restart express
+`yarn add --dev nodemon`
+
+Update `package.json`
+```json
+"scripts": {
+  "server": "nodemon --watch server --exec babel-node -- server/index.js"
+}
+```
+
+Add Client support with webpack and babel
+
+`yarn add --dev webpack webpack-dev-middleware babel-loader babel-plugin-transform-object-rest-spread`
 
 Update `server/index.html`
 ```html
@@ -215,7 +216,7 @@ render(<App />, document.getElementById('app'));
 ```
 
 Create `client/components/App.js`
-```
+```js
 import React from 'react';
 
 export default () => (
