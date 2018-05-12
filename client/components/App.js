@@ -1,30 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { doIncrement, doDecrement } from '../actions/counter';
 
 const MyComponent = (props) => (
     <div>
         <h1>MyComponent</h1>
-        <span>Value={props.text}</span><br/>
+        <span>Value={props.text}</span><br />
         <button onClick={props.onINC}>INC</button>&nbsp;-&nbsp;
         <button onClick={props.onDEC}>DEC</button>
     </div>
 )
 
 const mapStateToProps = state => ({
-    text: state.value
-})
-
-const doINC = () => ({
-    type: 'INC'
-})
-
-const doDEC = () => ({
-    type: 'DEC'
+    text: state.counter.value
 })
 
 const mapDispatchToProps = dispatch => ({
-    onINC: () => dispatch(doINC()),
-    onDEC: () => dispatch(doDEC())
+    onINC: () => dispatch(doIncrement()),
+    onDEC: () => dispatch(doDecrement())
 })
 
 export default connect(

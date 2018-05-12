@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import App from './components/App';
 import DevTools from './components/DevTools';
 
-import store from './counter.js';
+import store from './store.js';
 
 render(<Provider store={store}>
     <div>
